@@ -1,4 +1,5 @@
-import ShowShopLocation from '@/components/geolocation'
+import OpenGoogleMaps from '@/components/geolocation'
+
 
 
 function page() {
@@ -8,7 +9,7 @@ function page() {
 
 
 
-      <ShowShopLocation/>
+      <OpenGoogleMaps/>
       
     </div>
   )
