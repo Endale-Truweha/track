@@ -1,46 +1,56 @@
 "use client";
 import { useState } from "react";
 
-export default function ShowShopLocation() {
-  const [error, setError] = useState<string | null>(null);
-
-  // Replace with your shop's actual latitude and longitude
-  const shopLocation = { lat: 9.0301, lng: 38.7508 }; // Example: Addis Ababa, Ethiopia
-
-  const handleShowDirections = () => {
+const OpenGoogleMaps = () => {
+  const [loading, setLoading] = useState(false);
+  
+  const openGoogleMaps = () => {
     if (!navigator.geolocation) {
-      setError("Geolocation is not supported by your browser.");
+      alert("Geolocation is not supported by your browser.");
       return;
     }
+
+    setLoading(true);
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userLat = position.coords.latitude;
         const userLng = position.coords.longitude;
 
-        // Open Google Maps with directions from user to the shop
-        window.open(
-          `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${shopLocation.lat},${shopLocation.lng}&travelmode=driving`,
-          "_blank"
-        );
+     
+        const shopLat = 9.0301;  // Replace with your shop's latitude
+        const shopLng = 38.7508; // Replace with your shop's longitude
+
+        // Use Google Maps app deep link for mobile
+        const mobileUrl = `geo:${shopLat},${shopLng}?q=${shopLat},${shopLng}`;
+        // Fallback URL for desktop browsers
+        const desktopUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${shopLat},${shopLng}&travelmode=driving`;
+
+        // Check if the user is on a mobile device
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          window.location.href = mobileUrl;
+        } else {
+          window.open(desktopUrl, "_blank");
+        }
+
+        setLoading(false);
       },
-      (err) => setError(err.message),
-      { enableHighAccuracy: true }
+      (error) => {
+        alert("Unable to retrieve location: " + error.message);
+        setLoading(false);
+      }
     );
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-4 bg-gray-100">
-      <h1 className="text-2xl font-bold text-gray-800">Find Your Way to Our Shop 🏪</h1>
-
-      <button
-        onClick={handleShowDirections}
-        className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition duration-200"
-      >
-        📍 Get Directions to Our Shop
-      </button>
-
-      {error && <p className="text-red-500 text-lg mt-2">{error}</p>}
-    </div>
+    <button
+      onClick={openGoogleMaps}
+      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+      disabled={loading}
+    >
+      {loading ? "Getting Location..." : "Get Directions"}
+    </button>
   );
-}
+};
+
+export default OpenGoogleMaps;
