@@ -80,15 +80,12 @@ const OpenGoogleMaps = () => {
         const userLng = position.coords.longitude;
 
         // Construct the URLs based on device type
-        const mobileUrl = `geo:${shopLat},${shopLng}?q=${shopLat},${shopLng}`;
+     
         const desktopUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${shopLat},${shopLng}&travelmode=driving`;
 
-        // Open Google Maps depending on the user's device
-        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-          window.location.href = mobileUrl;
-        } else {
+      
           window.open(desktopUrl, "_blank");
-        }
+        
 
         setLoading(false);
       },
