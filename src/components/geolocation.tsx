@@ -100,13 +100,13 @@ const OpenGoogleMaps = () => {
   };
 
   return (
-    <div className="flex flex-col items-center m-12 container   ">
-      <h1 className="text-2xl font-bold mb-4">Get Directions to Nearest Shops</h1>
+    <div className="flex flex-col items-center m-12 container   bg-ethGray-100  ">
+     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Get Directions to Nearest Shops</h1>
       
       {/* Button to trigger geolocation */}
       <Button
         onClick={handleGetLocation}
-        className="px-4 py-2 m-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+       className="rounded-[0] mt-10 scroll-m-20 border-b px-6  py-4 bg-ethGray-500 hover:bg-ethGray-600  text-ethBlack-500 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
         disabled={loading}
       >
         {loading ? "Finding Nearest Shops..." : "Find Nearest Shops"}
@@ -115,15 +115,19 @@ const OpenGoogleMaps = () => {
       {/* List of buttons for nearest sites */}
       <div className=" grid  grid-cols-2 md:grid-cols-3 m-4">
         {sitesSorted.map((site) => (
-          <Button
+          <div
             key={site.SiteID}
             onClick={() =>
               openGoogleMaps(parseFloat(site.Uni_Latitude), parseFloat(site.Uni_Longitude))
             }
-            className="px-6 py-6 m-4 bg-green-500 text-white rounded-md hover:bg-green-600 my-2"
+         className="m-4 scroll-m-20 text-2xl font-semibold tracking-tight  px-6  py-4 bg-ethGray-500 hover:bg-ethGray-600  text-ethBlack-500 "
           >
-            {site.SiteID} - {site.Region} - {site.zone} (Distance: {site.distance.toFixed(2)} km)
-          </Button>
+
+
+{site.SiteID} - {site.Region} - {site.zone} (Distance: {site.distance.toFixed(2)} km)
+    
+           
+          </div>
         ))}
       </div>
     </div>
