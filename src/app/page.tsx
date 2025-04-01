@@ -1,28 +1,22 @@
 "use client";
-import OpenGoogleMaps from '@/components/geolocation'
-import SplashScreen from '@/components/SplashScreen'
+import OpenGoogleMaps from '@/components/OpenGoogleMaps';
+import SplashScreen from '@/components/SplashScreen';
 import { useState } from 'react';
 
-
-
-function page() {
+function Page() {  // ✅ Renamed to "Page"
   const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div>
-
-
-{isLoading ? (
+      {isLoading ? (
         <SplashScreen onFinish={() => setIsLoading(false)} />
       ) : (
-        <main >
-         <OpenGoogleMaps/>
+        <main>
+          <OpenGoogleMaps />
         </main>
       )}
-
-     
-      
     </div>
-  )
+  );
 }
 
-export default page
+export default Page;
