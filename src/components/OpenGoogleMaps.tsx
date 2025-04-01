@@ -11,11 +11,12 @@ import {
   Card,
   CardContent,
   CardDescription,
- 
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { useState } from "react";
+import { MapPinned } from "lucide-react";
 
 // Define your site interface and list (you can import this from your existing file)
 
@@ -157,6 +158,10 @@ const OpenGoogleMaps = () => {
 <CardContent>
     <p>Distance: {site.distance.toFixed(2)} km</p>
   </CardContent>
+
+  <CardFooter>
+    <p className="flex items-center gap-1"><MapPinned color="#8DC63F" /> Map</p>
+  </CardFooter>
           </Card>
 
         ))}
