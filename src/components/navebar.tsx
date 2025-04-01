@@ -13,7 +13,8 @@ function Navbar() {
         </div>
 
         <div >
-    <h1   className=' text-3xl text-lime-800 font-bold whitespace-nowrap text-center m-2.5 font-serif' >For Example</h1>
+        <Image src='/5G Logo.png' alt='5G' width={81} height={22} />
+   
     
 </div>
        

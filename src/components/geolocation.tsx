@@ -1,9 +1,22 @@
 "use client";
 import { sites } from "@/lib/data";
-import { useState } from "react";
+
 import { Site } from "@/lib/data";
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
+
+
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { useState } from "react";
+
 // Define your site interface and list (you can import this from your existing file)
 
 // Create a new type that includes the distance property
@@ -109,36 +122,43 @@ const OpenGoogleMaps = () => {
         style={{
           objectFit: 'contain',
         }}
-      className="-z-50 opacity-10"
+      className="-z-20 opacity-10"
       />
 
      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Get Directions to Nearest 5G Networks</h1>
       
       {/* Button to trigger geolocation */}
       <Button
+      variant="outline"
         onClick={handleGetLocation}
-       className="rounded-[0] mt-10 scroll-m-20 border-b px-6  py-4 bg-ethGray-500 hover:bg-ethGray-600 underline  text-ethBlack-500 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+       className="rounded-[0] mt-10 scroll-m-20 border-b px-6  py-6 bg-ethGray-50 hover:bg-ethGray-200 underline  text-ethBlack-500 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
         disabled={loading}
       >
         {loading ? "Finding Nearest 5G Networks..." : "Find Nearest 5G Networks"}
       </Button>
 
       {/* List of buttons for nearest sites */}
-      <div className=" grid  grid-cols-2 md:grid-cols-3 m-4">
+      <div className=" grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-4">
         {sitesSorted.map((site) => (
-          <div
+
+          <Card
             key={site.SiteID}
             onClick={() =>
               openGoogleMaps(parseFloat(site.Uni_Latitude), parseFloat(site.Uni_Longitude))
             }
-         className="m-4  scroll-m-20 text-2xl font-semibold tracking-tight  px-6  py-4 bg-ethGray-500 hover:bg-ethGray-600  text-ethBlack-500 "
+         className="m-4 bg-transparent hover:bg-ethGray-100"
           >
+  <CardHeader>
+<CardTitle>{site.Region}--{site.zone} </CardTitle>
+<CardDescription>Site ID : {site.SiteID}</CardDescription>
+</CardHeader>
 
-
-{site.SiteID} - {site.Region} - {site.zone} (Distance: {site.distance.toFixed(2)} km)
     
-           
-          </div>
+<CardContent>
+    <p>Distance: {site.distance.toFixed(2)} km</p>
+  </CardContent>
+          </Card>
+
         ))}
       </div>
       <div className="mb-40"></div>
