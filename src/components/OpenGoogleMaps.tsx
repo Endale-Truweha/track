@@ -5,6 +5,13 @@ import { Site } from "@/lib/data";
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 
 import {
@@ -44,6 +51,7 @@ const haversine = (lat1: number, lon1: number, lat2: number, lon2: number) => {
 
 const OpenGoogleMaps = () => {
   const [sitesSorted, setSitesSorted] = useState<SiteWithDistance[]>([]);
+  const [selected, setSelected] = useState("driving") // Default value
   const [loading, setLoading] = useState(false);
 
   const handleGetLocation = () => {
@@ -96,7 +104,7 @@ const OpenGoogleMaps = () => {
 
         // Construct the URLs based on device type
      
-        const desktopUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${shopLat},${shopLng}&travelmode=driving`;
+        const desktopUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${shopLat},${shopLng}&travelmode=${selected}`;
 
       
           window.open(desktopUrl, "_blank");
@@ -129,15 +137,35 @@ const OpenGoogleMaps = () => {
      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Get Directions to Nearest 5G Networks</h1>
       
       {/* Button to trigger geolocation */}
+      <div className="flex justify-between items-center gap-4">
+        
+      
       <Button
       variant="outline"
         onClick={handleGetLocation}
-       className="rounded-[0] mt-10 scroll-m-20 border-b px-6  py-6 bg-ethGray-50 hover:bg-ethGray-200 underline  text-ethBlack-500 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+       className="rounded-[0] mt-10 scroll-m-20 border-b px-6  py-6 bg-transparent hover:bg-ethGray-200 underline  text-ethBlack-500 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
         disabled={loading}
       >
         {loading ? "Finding Nearest 5G Networks..." : "Find Nearest 5G Networks"}
       </Button>
 
+
+
+
+
+      <Select value={selected} onValueChange={setSelected}>
+  <SelectTrigger className="w-[180px]">
+    <SelectValue placeholder="Theme" />
+  </SelectTrigger>
+  <SelectContent>
+  <SelectItem value="driving">Driving</SelectItem>
+    <SelectItem value="walking">Walking</SelectItem>
+   
+  </SelectContent>
+</Select>
+
+
+      </div>
       {/* List of buttons for nearest sites */}
       <div className=" grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-4">
         {sitesSorted.map((site) => (
