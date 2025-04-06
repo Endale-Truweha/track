@@ -137,7 +137,7 @@ const OpenGoogleMaps = () => {
      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Get Directions to Nearest 5G Networks</h1>
       
       {/* Button to trigger geolocation */}
-      <div className="flex justify-between items-center gap-4">
+      <div className=" grid grid-cols-1 md:grid-cols-2  place-items-center gap-4">
         
       
       <Button
